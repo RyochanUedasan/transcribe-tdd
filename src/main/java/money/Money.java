@@ -11,13 +11,16 @@ class Money implements Expression {
         return new Money(amount * multiplier, currency);
     }
     Expression plus(Money addend) {
-        return new Money(amount + addend.amount, currency);
+        return new Sum(this, addend);
     }
     String currency() { return currency; }
     public boolean equals(Object object) {
         Money money = (Money) object;
         return amount == money.amount
                 && currency().equals(money.currency());
+    }
+    public Money reduce(String to) {
+        return this;
     }
     static Money dollar(int amount) {
         return new Money(amount, "USD");
