@@ -19,8 +19,9 @@ class Money implements Expression {
         return amount == money.amount
                 && currency().equals(money.currency());
     }
-    public Money reduce(String to) {
-        return this;
+    public Money reduce(Bank bank, String to) {
+        int rate = bank.rate(currency, to);
+        return new Money(amount / rate, to);
     }
     static Money dollar(int amount) {
         return new Money(amount, "USD");
